@@ -20,7 +20,8 @@ public class MscloudgatewayApplication {
 	@Bean
 	public RouteLocator routes(RouteLocatorBuilder builder) {
 		return builder.routes()
-					.route(r -> r.path("/clientes/**").uri("lb://msclient"))
+				.route(r -> r.path("/cartao/**").uri("lb://mscartao"))
+				.route(r -> r.path("/clientes/**").uri("lb://msclient"))
 				.build();
 	}
 
