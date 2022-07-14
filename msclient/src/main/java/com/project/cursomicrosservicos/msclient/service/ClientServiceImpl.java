@@ -15,7 +15,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class ClientServiceImpl implements ClientService {
 
-	private final @Autowired ClientRepository clientRepository;
+	private final ClientRepository clientRepository;
 
 	@Override
 	public Optional<ClientEntity> getByCpf(String cpf) {
