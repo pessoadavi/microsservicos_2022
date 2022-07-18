@@ -1,5 +1,6 @@
 package com.project.cursomicrosservicos.msclient.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,11 @@ public class ClientServiceImpl implements ClientService {
 	@Transactional
 	public ClientEntity save(ClientEntity cliente) {
 		return clientRepository.saveAndFlush(cliente);
+	}
+
+	@Override
+	public List<ClientEntity> getAll() {
+		return clientRepository.findAll();
 	}
 
 }

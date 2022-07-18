@@ -1,5 +1,6 @@
 package com.project.cursomicrosservicos.msclient.controller;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.BeanUtils;
@@ -22,6 +23,11 @@ import com.project.cursomicrosservicos.msclient.service.ClientService;
 public class ClientController {
 
 	private @Autowired ClientService clientService;
+	
+	@GetMapping()
+	public List<ClientEntity> listarTodos(){
+		return clientService.getAll(); 
+	}
 	
 	@GetMapping("/{cpf}")
 	public Optional<ClientEntity> buscarCliente(@PathVariable("cpf") String cpf) {

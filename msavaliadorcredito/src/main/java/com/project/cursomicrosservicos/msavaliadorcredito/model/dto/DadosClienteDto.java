@@ -11,4 +11,5 @@ public class DadosClienteDto implements Serializable {
 
 	private Integer id;
 	private String nome;
+	private Integer idade;
 }
