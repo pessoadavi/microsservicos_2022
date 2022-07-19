@@ -3,16 +3,21 @@ package com.project.cursomicrosservicos.msavaliadorcredito.service;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
+import com.project.cursomicrosservicos.msavaliadorcredito.handleexceptions.ErroSolicitacaoCartaoException;
 import com.project.cursomicrosservicos.msavaliadorcredito.model.dto.CartaoAprovadoDto;
 import com.project.cursomicrosservicos.msavaliadorcredito.model.dto.CartaoClienteDto;
 import com.project.cursomicrosservicos.msavaliadorcredito.model.dto.CartaoDto;
 import com.project.cursomicrosservicos.msavaliadorcredito.model.dto.DadosClienteDto;
+import com.project.cursomicrosservicos.msavaliadorcredito.model.dto.DadosSolicitacaoEmissaoCartaoDto;
+import com.project.cursomicrosservicos.msavaliadorcredito.model.dto.ProtocoloSolicitacaoCartao;
 import com.project.cursomicrosservicos.msavaliadorcredito.model.dto.RetornoAvaliacaoClienteDto;
 import com.project.cursomicrosservicos.msavaliadorcredito.model.entity.SituacaoClienteEntity;
+import com.project.cursomicrosservicos.msavaliadorcredito.mqueue.publisher.SolicitacaoEmissaoCartaoPublisher;
 import com.project.cursomicrosservicos.msavaliadorcredito.openfeign.mscartao.CartaoFeign;
 import com.project.cursomicrosservicos.msavaliadorcredito.openfeign.msclient.ClienteFeign;
 
@@ -24,6 +29,7 @@ public class AvaliadorCreditoServiceimpl implements AvaliadorCreditoService {
 	
 	private final CartaoFeign cartaoFeign;
 	private final ClienteFeign clienteFeign;
+	private final SolicitacaoEmissaoCartaoPublisher emissaoCartaoPublisher;
 	
 	@Override
 	public SituacaoClienteEntity obterSituacaoCliente(String cpf) {
@@ -55,6 +61,18 @@ public class AvaliadorCreditoServiceimpl implements AvaliadorCreditoService {
 		}).collect(Collectors.toList());
 		
 		return new RetornoAvaliacaoClienteDto(aprovados);
+	}
+
+	@Override
+	public ProtocoloSolicitacaoCartao solicitarEmissaoCartao(DadosSolicitacaoEmissaoCartaoDto dados) {
+		
+		try {
+			emissaoCartaoPublisher.solicitarCartao(dados);
+			String protocolo = UUID.randomUUID().toString();
+			return new ProtocoloSolicitacaoCartao(protocolo);
+		} catch (Exception e) {
+			throw new ErroSolicitacaoCartaoException(e.getMessage());
+		}
 	}
 	
 }
