@@ -1925,3 +1925,6 @@ com.netflix.discovery.shared.transport.TransportException: Cannot execute reques
 2022-07-29 13:49:02.596  INFO 1648 --- [DiscoveryClient-InstanceInfoReplicator-0] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_MSCLIENT/msclient:f46d468135780d18305e2ecabe4c2524: registering service...
 2022-07-29 13:49:02.745  INFO 1648 --- [DiscoveryClient-InstanceInfoReplicator-0] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_MSCLIENT/msclient:f46d468135780d18305e2ecabe4c2524 - registration status: 204
 2022-07-29 13:49:02.822  INFO 1648 --- [restartedMain] c.p.c.msclient.MsclientApplication       : Started MsclientApplication in 15.642 seconds (JVM running for 19.917)
+2022-07-29 13:54:01.805  INFO 1648 --- [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2022-07-29 13:59:01.809  INFO 1648 --- [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2022-07-29 14:04:01.811  INFO 1648 --- [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
